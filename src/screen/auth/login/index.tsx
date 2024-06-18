@@ -1,10 +1,9 @@
-import { useNavigation, NavigationProp } from '@react-navigation/native'; // Import NavigationProp
-import axios from 'axios';
 import React, { useState } from 'react';
-import { Alert, Image, Text, TouchableOpacity, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { Alert, Image, Text, TouchableOpacity, View, KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
+import { TextInput, IconButton } from 'react-native-paper'; // Import IconButton from react-native-paper
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import axios from 'axios';
 
-// Definisikan tipe untuk navigation
 type RootStackParamList = {
     Home: undefined;
     Login: undefined;
@@ -17,7 +16,8 @@ const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const navigation = useNavigation<NavigationType>(); // Gunakan useNavigation dengan tipe NavigationType
+    const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
+    const navigation = useNavigation<NavigationType>();
 
     const API_URL = Platform.select<string>({
         ios: 'http://localhost:5000/login',
@@ -38,45 +38,54 @@ const Login = () => {
             } else {
                 Alert.alert('Error', response.data.message as string);
             }
-            console.log(setIsLoggedIn, "test")
         } catch (error: any) {
             console.error('API request error:', error.response ? error.response.data : error.toString());
             Alert.alert('Error', 'An error occurred. Please try again.');
         }
     };
 
+    const toggleSecureEntry = () => {
+        setSecureTextEntry(!secureTextEntry);
+    };
+
     return (
         <KeyboardAvoidingView
-            style={{ flex: 1 }}
+            style={styles.container}
             behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
-                    <Image source={require('../../../../assets/atlas.png')} style={{ display: 'flex', position: 'absolute', left: 0, top: 0 }} />
-                    <Image source={require('../../../../assets/leaf 1.png')} style={{ display: 'flex', position: 'absolute', right: 0, top: 0 }} />
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', position: 'absolute', top: 50 }}>Login</Text>
-                    <View style={{ width: '80%', marginTop: 10, position: 'absolute', top: 100 }}>
-                        <Text style={{ marginTop: 20, fontSize: 25, fontWeight: 'bold' }}>Email</Text>
+                <View style={styles.inner}>
+                    <Image source={require('../../../../assets/atlas.png')} style={styles.backgroundImage} />
+                    <Image source={require('../../../../assets/leaf 1.png')} style={styles.leafImage} />
+                    <Text style={styles.title}>Login</Text>
+                    <View style={styles.formContainer}>
                         <TextInput
-                            placeholder="email"
+                            placeholder="Email"
                             value={email}
                             onChangeText={setEmail}
-                            style={{ borderRadius: 4, borderWidth: 1, fontSize: 20, marginBottom: 20 }}
+                            style={styles.input}
                         />
-                        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Password</Text>
-                        <TextInput
-                            placeholder="Password"
-                            value={password}
-                            onChangeText={setPassword}
-                            secureTextEntry
-                            style={{ borderRadius: 4, borderWidth: 1, fontSize: 20, marginBottom: 30 }}
-                        />
-                        <TouchableOpacity style={{ backgroundColor: '#3572EF', alignContent: 'center', alignItems: 'center', padding: 15, borderRadius: 10 }} onPress={handleLogin}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Login</Text>
+                        <View style={styles.passwordInput}>
+                            <TextInput
+                                placeholder="Password"
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry={secureTextEntry}
+                                style={styles.input}
+                            />
+                            <IconButton
+                                icon={secureTextEntry ? 'eye' : 'eye-off'}
+                                onPress={toggleSecureEntry}
+                                style={styles.iconButton}
+                                color="#3572EF"
+                            />
+                        </View>
+                        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                            <Text style={styles.loginButtonText}>Login</Text>
                         </TouchableOpacity>
-                        <Text style={{ textAlign: 'center', marginTop: 20, fontSize: 16, fontWeight: 'bold' }}>
+                        <Text style={styles.signUpText}>
                             Don't have an account?
-                            {/* <Text style={{ color: '#3572EF', fontWeight: 'bold', fontSize: 16 }} onPress={() => navigation.navigate('SignUp')}> Sign Up</Text> */}
+                            <Text style={styles.signUpLink} onPress={() => navigation.navigate('Register')}> Sign Up</Text>
                         </Text>
                     </View>
                 </View>
@@ -84,5 +93,89 @@ const Login = () => {
         </KeyboardAvoidingView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
+    inner: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    backgroundImage: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+        opacity: 0.5,
+    },
+    leafImage: {
+        position: 'absolute',
+        right: 0,
+        top: 0,
+    },
+    title: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        marginTop: 50,
+        marginBottom: 30,
+        fontFamily: 'Roboto', 
+        color: 'black', 
+    },
+    formContainer: {
+        width: '80%',
+        alignItems: 'center',
+    },
+    input: {
+        width: '100%',
+        height: 50,
+        borderRadius: 5,
+        borderWidth: 1,
+        fontSize: 20,
+        marginBottom: 20,
+        paddingHorizontal: 15,
+        fontFamily: 'Roboto', 
+    },
+    passwordInput: {
+        width: '100%',
+        height: 50,
+        borderRadius: 5,
+        fontSize: 20,
+        marginBottom: 20,
+        fontFamily: 'Roboto',
+    },
+    iconButton: {
+        position: 'absolute',
+        right: 10,
+    },
+    loginButton: {
+        backgroundColor: '#3572EF',
+        paddingVertical: 15,
+        paddingHorizontal: 60,
+        borderRadius: 10,
+        marginBottom: 30,
+        width: '100%',
+    },
+    loginButtonText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: 'white',
+        textAlign: 'center',
+        fontFamily: 'Roboto',
+    },
+    signUpText: {
+        textAlign: 'center',
+        fontSize: 16,
+    },
+    signUpLink: {
+        color: '#3572EF',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+});
 
 export default Login;

@@ -1,15 +1,18 @@
 import React from 'react';
 import { Text, TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
 export const InputJourney = () => {
     return (
-        <View >
-            <Text style={{ fontSize: 25, fontWeight: 'bold', marginLeft: 10 }}> Journey</Text>
+        <View style={styles.outerContainer}>
+            <Text style={styles.headerText}>Journey</Text>
             <View style={styles.container}>
+                <Ionicons name="search" size={20} color="gray" style={styles.icon} />
                 <TextInput
                     style={styles.input}
                     placeholder="Find Journey"
-                    onChangeText={(text) => { }}
+                    placeholderTextColor="#8e8e93"
+                    onChangeText={(text) => { text }}
                 />
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Search</Text>
@@ -20,35 +23,43 @@ export const InputJourney = () => {
 }
 
 const styles = StyleSheet.create({
+    outerContainer: {
+        padding: 10,
+    },
+    headerText: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginLeft: 10,
+    },
     container: {
-        marginTop: 15,
-        marginHorizontal: 30,
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 10,
-        padding: 5,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 25,
+        paddingHorizontal: 10,
+        marginTop: 15,
+        marginHorizontal: 30,
+    },
+    icon: {
+        marginRight: 10,
     },
     input: {
+        flex: 1,
         height: 40,
-        borderColor: 'blue',
-        borderWidth: 1,
-        width: 250,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
+        backgroundColor: 'transparent',
         paddingHorizontal: 10,
     },
     button: {
-        marginLeft: 10,
-
         backgroundColor: '#3572EF',
-        width: 80,
-        height: 30,
-        borderRadius: 10,
-        paddingVertical: 5,
-        paddingHorizontal: 10,
+        borderRadius: 20,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        marginLeft: 10,
     },
     buttonText: {
         color: 'white',
-        textAlign: 'center',
+        fontWeight: 'bold',
     },
 });
+
+export default InputJourney;

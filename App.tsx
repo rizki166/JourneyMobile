@@ -8,8 +8,6 @@ import { store } from './src/store';
 import { NativeBaseProvider, extendTheme } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-// Import screens
 import Home from './src/screen/home';
 import { Bookmark } from './src/screen/bookmarks';
 import Profile from './src/screen/profile';
@@ -18,7 +16,6 @@ import Login from './src/screen/auth/login';
 import Register from './src/screen/auth/register';
 import DetailJourney from './src/screen/detailJourney';
 
-// Membuat tema kustom
 const theme = extendTheme({
   colors: {
     primary: '#3498db',
@@ -30,10 +27,10 @@ const theme = extendTheme({
   },
 });
 
-// Komponen untuk header dengan gambar
+
 const CustomHeaderTitle = () => (
   <Image
-    source={require('./assets/icon.png')} // Sesuaikan path dengan lokasi gambar Anda
+    source={require('./assets/icon.png')}
     style={{ width: 30, height: 30 }}
     resizeMode="contain"
   />
@@ -54,7 +51,7 @@ const TabNavigator = () => (
             iconName = 'home';
             break;
           case 'NewJurnal':
-            return <MaterialIcons name="edit" size={size} color={color} />; // Gunakan ikon "edit"
+            return <MaterialIcons name="edit" size={size} color={color} />;
           case 'Bookmark':
             iconName = 'bookmark';
             break;

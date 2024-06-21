@@ -40,7 +40,8 @@ export default function MainContainer() {
               default:
                 iconName = 'circle';
                 break;
-            }
+            } 
+              
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },

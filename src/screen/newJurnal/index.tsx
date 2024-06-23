@@ -23,7 +23,6 @@ export const NewJurnal: React.FC<Props> = ({ navigation, route }) => {
 
     return (
         <View>
-            <Navbar />
             <View>
                 <PostScreen route={{ key: 'Post', name: 'Post', params: { token } }} navigation={navigation} />
             </View>

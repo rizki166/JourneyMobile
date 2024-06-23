@@ -7,7 +7,7 @@ import { Bookmark } from './bookmarks';
 import Profile from './profile';
 import { NewJurnal } from './newJurnal';
 
-// Screen names
+
 const homeName = 'Home';
 const bookmarkName = 'Bookmark';
 const profileName = 'Profile';

@@ -3,8 +3,8 @@ import { Image, View, StyleSheet, Text } from 'react-native';
 import { Box, Menu, Pressable, HStack } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'; // Menggunakan react-native-vector-icons
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; // Menggunakan react-native-vector-icons
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 
 type RootStackParamList = {
     Login: undefined

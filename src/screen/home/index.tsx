@@ -1,23 +1,10 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { InputJourney } from '../../component/input/inputJouney';
 import CardJourney from '../../component/card/cardJourney';
-import { useNavigation } from '@react-navigation/native';
-// import { Navbar } from '../../component/navbar';
 
-//screen 
-import { Bookmark } from '../bookmarks';
-import Profile from '../profile';
-import { NewJurnal } from '../newJurnal';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-//screen name
-const bookmarkName = 'Bookmark';
-const profileName = 'Profile';
-const newJurnalName = 'newJurnal';
-
-const Tab = createBottomTabNavigator()
 export default function Home() {
     return (
         <View style={styles.container}>

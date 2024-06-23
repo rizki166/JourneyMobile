@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Alert, Image, Text, TouchableOpacity, View, KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
-import { TextInput, IconButton } from 'react-native-paper'; // Import IconButton from react-native-paper
+import { TextInput, IconButton } from 'react-native-paper';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import axios from 'axios';
+import { storeToken } from '../../../libs/call/token';
+
 
 type RootStackParamList = {
     Home: undefined;
@@ -33,6 +35,7 @@ const Login = () => {
             });
             console.log('API response:', response.data);
             if (response.data.status) {
+                await storeToken(response.data.data);
                 setIsLoggedIn(true);
                 navigation.navigate('Home');
             } else {
@@ -123,8 +126,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 50,
         marginBottom: 30,
-        fontFamily: 'Roboto', 
-        color: 'black', 
+        fontFamily: 'Roboto',
+        color: 'black',
     },
     formContainer: {
         width: '80%',
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20,
         paddingHorizontal: 15,
-        fontFamily: 'Roboto', 
+        fontFamily: 'Roboto',
     },
     passwordInput: {
         width: '100%',

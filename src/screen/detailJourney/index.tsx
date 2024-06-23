@@ -66,22 +66,21 @@ const DetailJourney = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 10
+        flex: 1
     },
     scrollContent: {
         flexGrow: 1,
 
     },
     content: {
-        padding: 10,
         alignItems: 'center',
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-        marginBottom: 10,
+        marginTop: 50,
+        padding:10
     },
     title: {
         fontSize: 22,
@@ -96,16 +95,16 @@ const styles = StyleSheet.create({
     dateContainer: {
         alignSelf: 'flex-start',
         marginBottom: 10,
+        padding:10
     },
     date: {
         fontSize: 18,
     },
     image: {
-        width: 400,
+        width: "100%",
         height: 300,
         marginBottom: 20,
-        borderRadius: 10,
-        objectFit: 'contain'
+        objectFit: 'cover'
     },
     description: {
         fontSize: 18,

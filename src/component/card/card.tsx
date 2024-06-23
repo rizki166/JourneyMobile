@@ -3,6 +3,7 @@ import { TouchableOpacity, Image, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { IJourney } from '../../type/app';
 import moment from 'moment';
+import BottonBookmark from '../button/buttonBookmark';
 
 interface ICardProps {
     journey: IJourney;
@@ -23,7 +24,10 @@ const Card: React.FC<ICardProps> = ({ journey }) => {
             <Image source={{ uri: imageUrl }} style={styles.image} />
             <View style={styles.textContainer}>
                 <Text style={styles.title}>{journey.title}</Text>
-                <Text style={styles.date}>{formattedDate}</Text>
+                <View style={styles.rowContainer}>
+                    <Text style={styles.date}>{formattedDate}</Text>
+                    <BottonBookmark journeyId={journey.id as number} />
+                </View>
                 <Text style={styles.fullname}>{journey.user.fullname}</Text>
                 <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail">
                     {journey.description}
@@ -35,9 +39,8 @@ const Card: React.FC<ICardProps> = ({ journey }) => {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        width: '90%',
+        width: '100%',
         backgroundColor: 'white',
-        borderRadius: 10,
         overflow: 'hidden',
         marginBottom: 25,
         shadowColor: '#000',
@@ -48,9 +51,8 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 200,
-        borderRadius: 10,
-        objectFit: 'contain'
+        height: 300,
+        objectFit: 'cover'
     },
     textContainer: {
         padding: 10,
@@ -59,8 +61,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
     },
-    date: {
+    rowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         marginTop: 5,
+    },
+    date: {
+        fontSize: 16,
+        color: '#555',
     },
     fullname: {
         fontSize: 16,
